@@ -1,0 +1,36 @@
+C:\Users\Acer\Dropbox\Personal\Advices\2021\19 - Full Real Project\Project\DVLD_Buisness\bin\Debug\DVLD_Buisness.dll
+C:\Users\Acer\Dropbox\Personal\Advices\2021\19 - Full Real Project\Project\DVLD_Buisness\bin\Debug\DVLD_Buisness.pdb
+C:\Users\Acer\Dropbox\Personal\Advices\2021\19 - Full Real Project\Project\DVLD_Buisness\obj\Debug\DVLD_Buisness.csproj.AssemblyReference.cache
+C:\Users\Acer\Dropbox\Personal\Advices\2021\19 - Full Real Project\Project\DVLD_Buisness\obj\Debug\DVLD_Buisness.csproj.CoreCompileInputs.cache
+C:\Users\Acer\Dropbox\Personal\Advices\2021\19 - Full Real Project\Project\DVLD_Buisness\obj\Debug\DVLD_Buisness.dll
+C:\Users\Acer\Dropbox\Personal\Advices\2021\19 - Full Real Project\Project\DVLD_Buisness\obj\Debug\DVLD_Buisness.pdb
+C:\Users\Acer\Dropbox\Personal\Advices\2021\19 - Full Real Project\Project\DVLD_Buisness\bin\Debug\DVLD_DataAccess.dll
+C:\Users\Acer\Dropbox\Personal\Advices\2021\19 - Full Real Project\Project\DVLD_Buisness\bin\Debug\DVLD_DataAccess.pdb
+C:\Users\Acer\Dropbox\Personal\Advices\2021\19 - Full Real Project\Project\DVLD_Buisness\obj\Debug\DVLD_Buisness.csproj.CopyComplete
+C:\Users\USER\Dropbox\Personal\Advices\2021\19 - Full Real Project\Project\DVLD_Buisness\bin\Debug\DVLD_Buisness.dll
+C:\Users\USER\Dropbox\Personal\Advices\2021\19 - Full Real Project\Project\DVLD_Buisness\bin\Debug\DVLD_Buisness.pdb
+C:\Users\USER\Dropbox\Personal\Advices\2021\19 - Full Real Project\Project\DVLD_Buisness\bin\Debug\DVLD_DataAccess.dll
+C:\Users\USER\Dropbox\Personal\Advices\2021\19 - Full Real Project\Project\DVLD_Buisness\bin\Debug\DVLD_DataAccess.pdb
+C:\Users\USER\Dropbox\Personal\Advices\2021\19 - Full Real Project\Project\DVLD_Buisness\obj\Debug\DVLD_Buisness.csproj.AssemblyReference.cache
+C:\Users\USER\Dropbox\Personal\Advices\2021\19 - Full Real Project\Project\DVLD_Buisness\obj\Debug\DVLD_Buisness.csproj.CoreCompileInputs.cache
+C:\Users\USER\Dropbox\Personal\Advices\2021\19 - Full Real Project\Project\DVLD_Buisness\obj\Debug\DVLD_Buisness.csproj.CopyComplete
+C:\Users\USER\Dropbox\Personal\Advices\2021\19 - Full Real Project\Project\DVLD_Buisness\obj\Debug\DVLD_Buisness.dll
+C:\Users\USER\Dropbox\Personal\Advices\2021\19 - Full Real Project\Project\DVLD_Buisness\obj\Debug\DVLD_Buisness.pdb
+C:\Users\90552\Desktop\Final_DVLD\Project\DVLD_Buisness\bin\Debug\DVLD_Buisness.dll
+C:\Users\90552\Desktop\Final_DVLD\Project\DVLD_Buisness\bin\Debug\DVLD_Buisness.pdb
+C:\Users\90552\Desktop\Final_DVLD\Project\DVLD_Buisness\bin\Debug\DVLD_DataAccess.dll
+C:\Users\90552\Desktop\Final_DVLD\Project\DVLD_Buisness\bin\Debug\DVLD_DataAccess.pdb
+C:\Users\90552\Desktop\Final_DVLD\Project\DVLD_Buisness\obj\Debug\DVLD_Buisness.csproj.AssemblyReference.cache
+C:\Users\90552\Desktop\Final_DVLD\Project\DVLD_Buisness\obj\Debug\DVLD_Buisness.csproj.CoreCompileInputs.cache
+C:\Users\90552\Desktop\Final_DVLD\Project\DVLD_Buisness\obj\Debug\DVLD_Buisness.csproj.CopyComplete
+C:\Users\90552\Desktop\Final_DVLD\Project\DVLD_Buisness\obj\Debug\DVLD_Buisness.dll
+C:\Users\90552\Desktop\Final_DVLD\Project\DVLD_Buisness\obj\Debug\DVLD_Buisness.pdb
+C:\C# Files\Cource 19 c#\Final_DVLD(teacher solution)\Project\DVLD_Buisness\bin\Debug\DVLD_Buisness.dll
+C:\C# Files\Cource 19 c#\Final_DVLD(teacher solution)\Project\DVLD_Buisness\bin\Debug\DVLD_Buisness.pdb
+C:\C# Files\Cource 19 c#\Final_DVLD(teacher solution)\Project\DVLD_Buisness\bin\Debug\DVLD_DataAccess.dll
+C:\C# Files\Cource 19 c#\Final_DVLD(teacher solution)\Project\DVLD_Buisness\bin\Debug\DVLD_DataAccess.pdb
+C:\C# Files\Cource 19 c#\Final_DVLD(teacher solution)\Project\DVLD_Buisness\obj\Debug\DVLD_Buisness.csproj.AssemblyReference.cache
+C:\C# Files\Cource 19 c#\Final_DVLD(teacher solution)\Project\DVLD_Buisness\obj\Debug\DVLD_Buisness.csproj.CoreCompileInputs.cache
+C:\C# Files\Cource 19 c#\Final_DVLD(teacher solution)\Project\DVLD_Buisness\obj\Debug\DVLD_Buisness.dll
+C:\C# Files\Cource 19 c#\Final_DVLD(teacher solution)\Project\DVLD_Buisness\obj\Debug\DVLD_Buisness.pdb
+C:\C# Files\Cource 19 c#\Final_DVLD(teacher solution)\Project\DVLD_Buisness\obj\Debug\DVLD_Bui.E5CEC4E3.Up2Date

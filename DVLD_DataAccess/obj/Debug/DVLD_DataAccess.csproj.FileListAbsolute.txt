@@ -1,0 +1,24 @@
+C:\Users\Acer\Dropbox\Personal\Advices\2021\19 - Full Real Project\Project\DVLD_DataAccess\bin\Debug\DVLD_DataAccess.dll
+C:\Users\Acer\Dropbox\Personal\Advices\2021\19 - Full Real Project\Project\DVLD_DataAccess\bin\Debug\DVLD_DataAccess.pdb
+C:\Users\Acer\Dropbox\Personal\Advices\2021\19 - Full Real Project\Project\DVLD_DataAccess\obj\Debug\DVLD_DataAccess.csproj.AssemblyReference.cache
+C:\Users\Acer\Dropbox\Personal\Advices\2021\19 - Full Real Project\Project\DVLD_DataAccess\obj\Debug\DVLD_DataAccess.csproj.CoreCompileInputs.cache
+C:\Users\Acer\Dropbox\Personal\Advices\2021\19 - Full Real Project\Project\DVLD_DataAccess\obj\Debug\DVLD_DataAccess.dll
+C:\Users\Acer\Dropbox\Personal\Advices\2021\19 - Full Real Project\Project\DVLD_DataAccess\obj\Debug\DVLD_DataAccess.pdb
+C:\Users\USER\Dropbox\Personal\Advices\2021\19 - Full Real Project\Project\DVLD_DataAccess\obj\Debug\DVLD_DataAccess.csproj.AssemblyReference.cache
+C:\Users\USER\Dropbox\Personal\Advices\2021\19 - Full Real Project\Project\DVLD_DataAccess\obj\Debug\DVLD_DataAccess.csproj.CoreCompileInputs.cache
+C:\Users\USER\Dropbox\Personal\Advices\2021\19 - Full Real Project\Project\DVLD_DataAccess\obj\Debug\DVLD_DataAccess.dll
+C:\Users\USER\Dropbox\Personal\Advices\2021\19 - Full Real Project\Project\DVLD_DataAccess\obj\Debug\DVLD_DataAccess.pdb
+C:\Users\USER\Dropbox\Personal\Advices\2021\19 - Full Real Project\Project\DVLD_DataAccess\bin\Debug\DVLD_DataAccess.dll
+C:\Users\USER\Dropbox\Personal\Advices\2021\19 - Full Real Project\Project\DVLD_DataAccess\bin\Debug\DVLD_DataAccess.pdb
+C:\Users\90552\Desktop\Final_DVLD\Project\DVLD_DataAccess\bin\Debug\DVLD_DataAccess.dll
+C:\Users\90552\Desktop\Final_DVLD\Project\DVLD_DataAccess\bin\Debug\DVLD_DataAccess.pdb
+C:\Users\90552\Desktop\Final_DVLD\Project\DVLD_DataAccess\obj\Debug\DVLD_DataAccess.csproj.AssemblyReference.cache
+C:\Users\90552\Desktop\Final_DVLD\Project\DVLD_DataAccess\obj\Debug\DVLD_DataAccess.csproj.CoreCompileInputs.cache
+C:\Users\90552\Desktop\Final_DVLD\Project\DVLD_DataAccess\obj\Debug\DVLD_DataAccess.dll
+C:\Users\90552\Desktop\Final_DVLD\Project\DVLD_DataAccess\obj\Debug\DVLD_DataAccess.pdb
+C:\C# Files\Cource 19 c#\Final_DVLD(teacher solution)\Project\DVLD_DataAccess\bin\Debug\DVLD_DataAccess.dll
+C:\C# Files\Cource 19 c#\Final_DVLD(teacher solution)\Project\DVLD_DataAccess\bin\Debug\DVLD_DataAccess.pdb
+C:\C# Files\Cource 19 c#\Final_DVLD(teacher solution)\Project\DVLD_DataAccess\obj\Debug\DVLD_DataAccess.csproj.AssemblyReference.cache
+C:\C# Files\Cource 19 c#\Final_DVLD(teacher solution)\Project\DVLD_DataAccess\obj\Debug\DVLD_DataAccess.csproj.CoreCompileInputs.cache
+C:\C# Files\Cource 19 c#\Final_DVLD(teacher solution)\Project\DVLD_DataAccess\obj\Debug\DVLD_DataAccess.dll
+C:\C# Files\Cource 19 c#\Final_DVLD(teacher solution)\Project\DVLD_DataAccess\obj\Debug\DVLD_DataAccess.pdb
