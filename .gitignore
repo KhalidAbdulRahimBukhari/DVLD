@@ -1,3 +1,20 @@
+# Ignore build folders inside the inner DVLD folder
+DVLD/bin/
+DVLD/obj/
+DVLD/.vs/
+
+# Also ignore all cache, user, and temp files everywhere
+*.cache
+*.suo
+*.user
+*.userosscache
+*.userprefs
+*.log
+*.tmp
+*.bak
+*.swp
+
+
 # Build Folders
 bin/
 obj/
