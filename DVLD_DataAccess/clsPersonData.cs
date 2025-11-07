@@ -5,193 +5,165 @@ using System.Data.SqlClient;
 
 namespace DVLD_DataAccess
 {
+    public class clsPersonDTO
+    {
+        public clsPersonDTO(int personID, string firstName, string secondName, string thirdName, string lastName,
+            string nationalNo, DateTime dateOfBirth, short gendor, string address, string phone,
+            string email, int nationalityCountryID, string imagePath)
+        {
+            this.PersonID = personID;
+            this.FirstName = firstName;
+            this.SecondName = secondName;
+            this.ThirdName = thirdName;
+            this.LastName = lastName;
+            this.NationalNo = nationalNo;
+            this.DateOfBirth = dateOfBirth;
+            this.Gendor = gendor;
+            this.Address = address;
+            this.Phone = phone;
+            this.Email = email;
+            this.NationalityCountryID = nationalityCountryID;
+            this.ImagePath = imagePath;
+        }
+
+        public int PersonID { set; get; }
+        public string FirstName { set; get; }
+        public string SecondName { set; get; }
+        public string ThirdName { set; get; }
+        public string LastName { set; get; }
+
+        public string FullName
+        {
+            get { return FirstName + " " + SecondName + " " + ThirdName + " " + LastName; }
+        }
+
+        public string NationalNo { set; get; }
+        public DateTime DateOfBirth { set; get; }
+        public short Gendor { set; get; }
+        public string Address { set; get; }
+        public string Phone { set; get; }
+        public string Email { set; get; }
+        public int NationalityCountryID { set; get; }
+
+        private string _ImagePath;
+
+        public string ImagePath
+        {
+            get { return _ImagePath; }
+            set { _ImagePath = value; }
+        }
+    }
+
     public class clsPersonData
     {
-       
-        public static bool GetPersonInfoByID(int PersonID, ref string FirstName, ref string SecondName,
-          ref string ThirdName, ref string LastName, ref string NationalNo, ref DateTime DateOfBirth,
-           ref short Gendor,ref string Address,  ref string Phone, ref string Email,
-           ref int NationalityCountryID, ref string ImagePath)
+
+        public static clsPersonDTO GetPersonInfoByID(int PersonID)
         {
-            bool isFound = false;
-
-            SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString);
-
-            string query = "SELECT * FROM People WHERE PersonID = @PersonID";
-
-            SqlCommand command = new SqlCommand(query, connection);
-
-            command.Parameters.AddWithValue("@PersonID", PersonID);
-
             try
             {
-                connection.Open();
-                SqlDataReader reader = command.ExecuteReader();
-
-                if (reader.Read())
+                using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
                 {
-                    // The record was found
-                    isFound = true;
-
-                    FirstName = (string)reader["FirstName"];
-                    SecondName = (string)reader["SecondName"];
-
-                    //ThirdName: allows null in database so we should handle null
-                    if (reader["ThirdName"] != DBNull.Value)
+                    using (SqlCommand command = new SqlCommand("SELECT * FROM People WHERE PersonID = @PersonID", connection))
                     {
-                        ThirdName = (string)reader["ThirdName"];
-                    }
-                    else
-                    {
-                        ThirdName = "";
-                    }
+                        command.Parameters.AddWithValue("@PersonID", PersonID);
 
-                    LastName = (string)reader["LastName"];
-                    NationalNo = (string)reader["NationalNo"];
-                    DateOfBirth = (DateTime)reader["DateOfBirth"];
-                    Gendor = (byte) reader["Gendor"];
-                    Address = (string)reader["Address"];
-                    Phone = (string)reader["Phone"];
+                        connection.Open();
 
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                // Read each value and handle nulls
+                                string thirdName = reader["ThirdName"] != DBNull.Value ? Convert.ToString(reader["ThirdName"]) : "";
+                                string email = reader["Email"] != DBNull.Value ? Convert.ToString(reader["Email"]) : "";
+                                string imagePath = reader["ImagePath"] != DBNull.Value ? Convert.ToString(reader["ImagePath"]) : "";
 
-                    //Email: allows null in database so we should handle null
-                    if (reader["Email"] != DBNull.Value)
-                    {
-                        Email = (string)reader["Email"];
+                                // Create and return a new PersonDTO
+                                return new clsPersonDTO(
+                                    Convert.ToInt32(reader["PersonID"]),
+                                    Convert.ToString(reader["FirstName"]),
+                                    Convert.ToString(reader["SecondName"]),
+                                    thirdName,
+                                    Convert.ToString(reader["LastName"]),
+                                    Convert.ToString(reader["NationalNo"]),
+                                    Convert.ToDateTime(reader["DateOfBirth"]),
+                                    Convert.ToInt16(reader["Gendor"]), // safely converts byte/short to short
+                                    Convert.ToString(reader["Address"]),
+                                    Convert.ToString(reader["Phone"]),
+                                    email,
+                                    Convert.ToInt32(reader["NationalityCountryID"]),
+                                    imagePath
+                                );
+                            }
+                        }
                     }
-                    else
-                    {
-                        Email = "";
-                    }
-
-                    NationalityCountryID = (int)reader["NationalityCountryID"];
-
-                    //ImagePath: allows null in database so we should handle null
-                    if (reader["ImagePath"] != DBNull.Value)
-                    {
-                        ImagePath = (string)reader["ImagePath"];
-                    }
-                    else
-                    {
-                        ImagePath = "";
-                    }
-
                 }
-                else
-                {
-                    // The record was not found
-                    isFound = false;
-                }
-
-                reader.Close();
             }
             catch (Exception ex)
             {
                 clsGlobalData.LogError(ex);
-                //Console.WriteLine("Error: " + ex.Message);
-
-                isFound = false;
-            }
-            finally
-            {
-                connection.Close();
             }
 
-            return isFound;
+            // Return null if no record was found
+            return null;
         }
 
 
-        public static bool GetPersonInfoByNationalNo(string NationalNo, ref int PersonID, ref string FirstName, ref string SecondName,
-        ref string ThirdName, ref string LastName,   ref DateTime DateOfBirth,
-         ref short Gendor,ref string Address, ref string Phone, ref string Email,
-         ref int NationalityCountryID, ref string ImagePath)
+
+
+
+
+        public static clsPersonDTO GetPersonInfoByNationalNo(string nationalNo)
         {
-            bool isFound = false;
-
-            SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString);
-
-            string query = "SELECT * FROM People WHERE NationalNo = @NationalNo";
-
-            SqlCommand command = new SqlCommand(query, connection);
-
-            command.Parameters.AddWithValue("@NationalNo", NationalNo);
-
             try
             {
-                connection.Open();
-                SqlDataReader reader = command.ExecuteReader();
-
-                if (reader.Read())
+                using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
                 {
-                    // The record was found
-                    isFound = true;
-
-                    PersonID = (int)reader["PersonID"];
-                    FirstName = (string)reader["FirstName"];
-                    SecondName = (string)reader["SecondName"];
-
-                    //ThirdName: allows null in database so we should handle null
-                    if (reader["ThirdName"] != DBNull.Value)
+                    using (SqlCommand command = new SqlCommand("SELECT * FROM People WHERE NationalNo = @NationalNo", connection))
                     {
-                        ThirdName = (string)reader["ThirdName"];
-                    }
-                    else
-                    {
-                        ThirdName = "";
-                    }
+                        command.Parameters.AddWithValue("@NationalNo", nationalNo);
 
-                    LastName = (string)reader["LastName"];
-                    DateOfBirth = (DateTime)reader["DateOfBirth"];
-                    Gendor = (byte)reader["Gendor"];
-                    Address = (string)reader["Address"];
-                    Phone = (string)reader["Phone"];
+                        connection.Open();
 
-                    //Email: allows null in database so we should handle null
-                    if (reader["Email"] != DBNull.Value)
-                    {
-                        Email = (string)reader["Email"];
-                    }
-                    else
-                    {
-                        Email = "";
-                    }
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                // Read each value and handle nulls
+                                string thirdName = reader["ThirdName"] != DBNull.Value ? Convert.ToString(reader["ThirdName"]) : "";
+                                string email = reader["Email"] != DBNull.Value ? Convert.ToString(reader["Email"]) : "";
+                                string imagePath = reader["ImagePath"] != DBNull.Value ? Convert.ToString(reader["ImagePath"]) : "";
 
-                    NationalityCountryID = (int)reader["NationalityCountryID"];
-
-                    //ImagePath: allows null in database so we should handle null
-                    if (reader["ImagePath"] != DBNull.Value)
-                    {
-                        ImagePath = (string)reader["ImagePath"];
+                                // Create and return a new PersonDTO
+                                return new clsPersonDTO(
+                                    Convert.ToInt32(reader["PersonID"]),
+                                    Convert.ToString(reader["FirstName"]),
+                                    Convert.ToString(reader["SecondName"]),
+                                    thirdName,
+                                    Convert.ToString(reader["LastName"]),
+                                    Convert.ToString(reader["NationalNo"]),
+                                    Convert.ToDateTime(reader["DateOfBirth"]),
+                                    Convert.ToInt16(reader["Gendor"]), // safely converts byte/short to short
+                                    Convert.ToString(reader["Address"]),
+                                    Convert.ToString(reader["Phone"]),
+                                    email,
+                                    Convert.ToInt32(reader["NationalityCountryID"]),
+                                    imagePath
+                                );
+                            }
+                        }
                     }
-                    else
-                    {
-                        ImagePath = "";
-                    }
-
                 }
-                else
-                {
-                    // The record was not found
-                    isFound = false;
-                }
-
-                reader.Close();
-
-
             }
             catch (Exception ex)
             {
                 clsGlobalData.LogError(ex);
-                //Console.WriteLine("Error: " + ex.Message);
-                isFound = false;
-            }
-            finally
-            {
-                connection.Close();
             }
 
-            return isFound;
+            // Return null if no record was found
+            return null;
         }
+
 
 
 
