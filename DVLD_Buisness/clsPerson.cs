@@ -101,11 +101,7 @@ namespace DVLD_Buisness
         {
             //call DataAccess Layer 
 
-            return clsPersonData.UpdatePerson(
-                this.PersonID, this.FirstName,this.SecondName,this.ThirdName,
-                this.LastName, this.NationalNo, this.DateOfBirth, this.Gendor,
-                this.Address, this.Phone, this.Email, 
-                  this.NationalityCountryID, this.ImagePath);
+            return clsPersonData.UpdatePerson(this.PersonDTO);
         }
 
         public static clsPerson Find(int PersonID)

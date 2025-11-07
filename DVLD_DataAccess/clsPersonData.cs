@@ -224,82 +224,74 @@ namespace DVLD_DataAccess
             return personDTO.PersonID;
         }
 
-        public static bool UpdatePerson(int PersonID,  string FirstName, string SecondName,
-           string ThirdName, string LastName, string NationalNo, DateTime DateOfBirth,
-           short Gendor, string Address, string Phone, string Email,
-            int NationalityCountryID, string ImagePath)
+        public static bool UpdatePerson(clsPersonDTO personDTO)
         {
-
             int rowsAffected = 0;
-            SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString);
 
-            string query = @"Update  People  
-                            set FirstName = @FirstName,
-                                SecondName = @SecondName,
-                                ThirdName = @ThirdName,
-                                LastName = @LastName, 
-                                NationalNo = @NationalNo,
-                                DateOfBirth = @DateOfBirth,
-                                Gendor=@Gendor,
-                                Address = @Address,  
-                                Phone = @Phone,
-                                Email = @Email, 
-                                NationalityCountryID = @NationalityCountryID,
-                                ImagePath =@ImagePath
-                                where PersonID = @PersonID";
-
-            SqlCommand command = new SqlCommand(query, connection);
-
-            command.Parameters.AddWithValue("@PersonID", PersonID);
-            command.Parameters.AddWithValue("@FirstName", FirstName);
-            command.Parameters.AddWithValue("@SecondName", SecondName);
-
-            if (ThirdName != "" && ThirdName != null)
-                command.Parameters.AddWithValue("@ThirdName", ThirdName);
-            else
-                command.Parameters.AddWithValue("@ThirdName", System.DBNull.Value);
-
-          
-            command.Parameters.AddWithValue("@LastName", LastName);
-            command.Parameters.AddWithValue("@NationalNo", NationalNo);
-            command.Parameters.AddWithValue("@DateOfBirth", DateOfBirth);
-            command.Parameters.AddWithValue("@Gendor", Gendor);
-            command.Parameters.AddWithValue("@Address", Address);
-            command.Parameters.AddWithValue("@Phone", Phone);
-
-            if (Email != "" && Email != null)
-                command.Parameters.AddWithValue("@Email", Email);
-            else
-                command.Parameters.AddWithValue("@Email", System.DBNull.Value);
-
-            command.Parameters.AddWithValue("@NationalityCountryID", NationalityCountryID);
-
-            if (ImagePath != "" && ImagePath != null)
-                command.Parameters.AddWithValue("@ImagePath", ImagePath);
-            else
-                command.Parameters.AddWithValue("@ImagePath", System.DBNull.Value);
-
+            string query = @"
+        UPDATE People
+        SET FirstName = @FirstName,
+            SecondName = @SecondName,
+            ThirdName = @ThirdName,
+            LastName = @LastName,
+            NationalNo = @NationalNo,
+            DateOfBirth = @DateOfBirth,
+            Gendor = @Gendor,
+            Address = @Address,
+            Phone = @Phone,
+            Email = @Email,
+            NationalityCountryID = @NationalityCountryID,
+            ImagePath = @ImagePath
+        WHERE PersonID = @PersonID";
 
             try
             {
-                connection.Open();
-                rowsAffected = command.ExecuteNonQuery();
+                using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
+                {
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@PersonID", personDTO.PersonID);
+                        command.Parameters.AddWithValue("@FirstName", personDTO.FirstName);
+                        command.Parameters.AddWithValue("@SecondName", personDTO.SecondName);
 
+                        if (!string.IsNullOrEmpty(personDTO.ThirdName))
+                            command.Parameters.AddWithValue("@ThirdName", personDTO.ThirdName);
+                        else
+                            command.Parameters.AddWithValue("@ThirdName", DBNull.Value);
+
+                        command.Parameters.AddWithValue("@LastName", personDTO.LastName);
+                        command.Parameters.AddWithValue("@NationalNo", personDTO.NationalNo);
+                        command.Parameters.AddWithValue("@DateOfBirth", personDTO.DateOfBirth);
+                        command.Parameters.AddWithValue("@Gendor", personDTO.Gendor);
+                        command.Parameters.AddWithValue("@Address", personDTO.Address);
+                        command.Parameters.AddWithValue("@Phone", personDTO.Phone);
+
+                        if (!string.IsNullOrEmpty(personDTO.Email))
+                            command.Parameters.AddWithValue("@Email", personDTO.Email);
+                        else
+                            command.Parameters.AddWithValue("@Email", DBNull.Value);
+
+                        command.Parameters.AddWithValue("@NationalityCountryID", personDTO.NationalityCountryID);
+
+                        if (!string.IsNullOrEmpty(personDTO.ImagePath))
+                            command.Parameters.AddWithValue("@ImagePath", personDTO.ImagePath);
+                        else
+                            command.Parameters.AddWithValue("@ImagePath", DBNull.Value);
+
+                        connection.Open();
+                        rowsAffected = command.ExecuteNonQuery();
+                    }
+                }
             }
             catch (Exception ex)
             {
                 clsGlobalData.LogError(ex);
-                //Console.WriteLine("Error: " + ex.Message);
                 return false;
-            }
-
-            finally
-            {
-                connection.Close();
             }
 
             return (rowsAffected > 0);
         }
+
 
 
         public static DataTable GetAllPeople()
