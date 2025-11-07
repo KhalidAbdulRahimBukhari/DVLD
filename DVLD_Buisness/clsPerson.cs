@@ -91,13 +91,8 @@ namespace DVLD_Buisness
 
         private bool _AddNewPerson()
         {
-            //call DataAccess Layer 
 
-            this.PersonID = clsPersonData.AddNewPerson(
-                this.FirstName,this.SecondName ,this.ThirdName,
-                this.LastName,this.NationalNo,
-                this.DateOfBirth, this.Gendor, this.Address, this.Phone, this.Email,
-                this.NationalityCountryID, this.ImagePath);
+            this.PersonID = clsPersonData.AddNewPerson(this.PersonDTO);
 
             return (this.PersonID != -1);
         }

@@ -108,11 +108,6 @@ namespace DVLD_DataAccess
             return null;
         }
 
-
-
-
-
-
         public static clsPersonDTO GetPersonInfoByNationalNo(string nationalNo)
         {
             try
@@ -164,82 +159,70 @@ namespace DVLD_DataAccess
             return null;
         }
 
-
-
-
-        public static int AddNewPerson( string FirstName,  string SecondName,
-           string ThirdName,  string LastName,  string NationalNo,  DateTime DateOfBirth,
-           short Gendor, string Address,  string Phone,  string Email,
-            int NationalityCountryID,  string ImagePath)
+        public static int AddNewPerson(clsPersonDTO personDTO)
         {
-            //this function will return the new person id if succeeded and -1 if not.
-            int PersonID = -1;
+            // this function will return the new person id if succeeded and -1 if not.
 
-            SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString);
-
-            string query = @"INSERT INTO People (FirstName, SecondName, ThirdName,LastName,NationalNo,
-                                                   DateOfBirth,Gendor,Address,Phone, Email, NationalityCountryID,ImagePath)
-                             VALUES (@FirstName, @SecondName,@ThirdName, @LastName, @NationalNo,
-                                     @DateOfBirth,@Gendor,@Address,@Phone, @Email,@NationalityCountryID,@ImagePath);
-                             SELECT SCOPE_IDENTITY();";
-
-            SqlCommand command = new SqlCommand(query, connection);
-
-            command.Parameters.AddWithValue("@FirstName", FirstName);
-            command.Parameters.AddWithValue("@SecondName", SecondName);
-           
-            if (ThirdName != "" && ThirdName != null)
-                command.Parameters.AddWithValue("@ThirdName", ThirdName);
-            else
-                command.Parameters.AddWithValue("@ThirdName", System.DBNull.Value);
-
-            command.Parameters.AddWithValue("@LastName", LastName);
-            command.Parameters.AddWithValue("@NationalNo", NationalNo);
-            command.Parameters.AddWithValue("@DateOfBirth", DateOfBirth);
-            command.Parameters.AddWithValue("@Gendor", Gendor);
-            command.Parameters.AddWithValue("@Address", Address);
-            command.Parameters.AddWithValue("@Phone", Phone);
-            
-            if (Email != "" && Email != null)
-                command.Parameters.AddWithValue("@Email", Email);
-            else
-                command.Parameters.AddWithValue("@Email", System.DBNull.Value);
-
-            command.Parameters.AddWithValue("@NationalityCountryID", NationalityCountryID);
-
-            if (ImagePath != "" && ImagePath != null)
-                command.Parameters.AddWithValue("@ImagePath", ImagePath);
-            else
-                command.Parameters.AddWithValue("@ImagePath", System.DBNull.Value);
+            string query = @"
+        INSERT INTO People 
+            (FirstName, SecondName, ThirdName, LastName, NationalNo, 
+             DateOfBirth, Gendor, Address, Phone, Email, NationalityCountryID, ImagePath)
+        VALUES 
+            (@FirstName, @SecondName, @ThirdName, @LastName, @NationalNo, 
+             @DateOfBirth, @Gendor, @Address, @Phone, @Email, @NationalityCountryID, @ImagePath);
+        SELECT SCOPE_IDENTITY();";
 
             try
             {
-                connection.Open();
-
-                object result = command.ExecuteScalar();
-
-                if (result != null && int.TryParse(result.ToString(), out int insertedID))
+                using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
                 {
-                    PersonID = insertedID;
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@FirstName", personDTO.FirstName);
+                        command.Parameters.AddWithValue("@SecondName", personDTO.SecondName);
+
+                        if (!string.IsNullOrEmpty(personDTO.ThirdName))
+                            command.Parameters.AddWithValue("@ThirdName", personDTO.ThirdName);
+                        else
+                            command.Parameters.AddWithValue("@ThirdName", DBNull.Value);
+
+                        command.Parameters.AddWithValue("@LastName", personDTO.LastName);
+                        command.Parameters.AddWithValue("@NationalNo", personDTO.NationalNo);
+                        command.Parameters.AddWithValue("@DateOfBirth", personDTO.DateOfBirth);
+                        command.Parameters.AddWithValue("@Gendor", personDTO.Gendor);
+                        command.Parameters.AddWithValue("@Address", personDTO.Address);
+                        command.Parameters.AddWithValue("@Phone", personDTO.Phone);
+
+                        if (!string.IsNullOrEmpty(personDTO.Email))
+                            command.Parameters.AddWithValue("@Email", personDTO.Email);
+                        else
+                            command.Parameters.AddWithValue("@Email", DBNull.Value);
+
+                        command.Parameters.AddWithValue("@NationalityCountryID", personDTO.NationalityCountryID);
+
+                        if (!string.IsNullOrEmpty(personDTO.ImagePath))
+                            command.Parameters.AddWithValue("@ImagePath", personDTO.ImagePath);
+                        else
+                            command.Parameters.AddWithValue("@ImagePath", DBNull.Value);
+
+                        connection.Open();
+
+                        object result = command.ExecuteScalar();
+
+                        if (result != null && int.TryParse(result.ToString(), out int insertedID))
+                        {
+                            personDTO.PersonID = insertedID;
+                        }
+                    }
                 }
             }
-
             catch (Exception ex)
             {
                 clsGlobalData.LogError(ex);
-                //Console.WriteLine("Error: " + ex.Message);
-
             }
 
-            finally
-            {
-                connection.Close();
-            }
-
-            return PersonID;
+            return personDTO.PersonID;
         }
-
-
 
         public static bool UpdatePerson(int PersonID,  string FirstName, string SecondName,
            string ThirdName, string LastName, string NationalNo, DateTime DateOfBirth,
