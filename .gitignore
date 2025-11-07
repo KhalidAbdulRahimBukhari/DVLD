@@ -1,0 +1,40 @@
+# Build Folders
+bin/
+obj/
+artifacts/
+
+# Visual Studio files
+.vs/
+*.suo
+*.user
+*.userosscache
+*.userprefs
+*.sln.docstates
+
+# Rider / JetBrains
+.idea/
+*.dotCover
+
+# VS Code settings
+.vscode/
+
+# NuGet packages
+packages/
+*.nupkg
+
+# .NET Core / ASP.NET Core
+project.lock.json
+project.fragment.lock.json
+TestResults/
+coverage/
+
+# Temporary / log files
+*.log
+*.tmp
+*.bak
+*.swp
+*.cache
+
+# OS generated files
+.DS_Store
+Thumbs.db
