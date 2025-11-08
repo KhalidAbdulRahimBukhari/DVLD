@@ -1,4 +1,8 @@
-﻿using System;
+﻿using DVLD.Classes;
+using DVLD.Helpers;
+using DVLD_Buisness;
+using DVLD_DTO;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -9,8 +13,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
-using DVLD.Classes;
-using DVLD_Buisness;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
 namespace DVLD.People
@@ -18,21 +20,19 @@ namespace DVLD.People
     public partial class frmListPeople : Form
     {
 
-      private static DataTable _dtAllPeople = clsPerson.GetAllPeople();
+      private static List<PersonDisplayDTO> _ListAllPeople = clsPerson.GetAllPeople();
         
         //only select the columns that you want to show in the grid
-      private DataTable _dtPeople = _dtAllPeople.DefaultView.ToTable(false, "PersonID", "NationalNo",
-                                                       "FirstName", "SecondName", "ThirdName", "LastName",
-                                                       "GendorCaption", "DateOfBirth", "CountryName",
-                                                       "Phone", "Email");
+      private DataTable _dtPeople = DataTableHelper.ToDataTable(_ListAllPeople,
+    "PersonID", "NationalNo", "FirstName", "SecondName", "ThirdName", "LastName",
+    "GendorCaption", "DateOfBirth", "CountryName", "Phone", "Email");
 
         private void _RefreshPeoplList()
         {
-            _dtAllPeople = clsPerson.GetAllPeople();
-            _dtPeople = _dtAllPeople.DefaultView.ToTable(false, "PersonID", "NationalNo",
-                                                       "FirstName", "SecondName", "ThirdName", "LastName",
-                                                       "GendorCaption", "DateOfBirth", "CountryName",
-                                                       "Phone", "Email");
+            _ListAllPeople = clsPerson.GetAllPeople();
+            _dtPeople = DataTableHelper.ToDataTable(_ListAllPeople,
+                                              "PersonID", "NationalNo", "FirstName", "SecondName", "ThirdName", "LastName",
+                                                "GendorCaption", "DateOfBirth", "CountryName", "Phone", "Email");
 
             dgvPeople.DataSource = _dtPeople;
             lblRecordsCount.Text = dgvPeople.Rows.Count.ToString();
