@@ -1,63 +1,14 @@
 ﻿using System;
-using System.ComponentModel;
-using System.Data;
 using System.Data.SqlClient;
+using System.Collections.Generic;
+using DVLD_DTO;
 
 namespace DVLD_DataAccess
-{
-    public class clsPersonDTO
-    {
-        public clsPersonDTO(int personID, string firstName, string secondName, string thirdName, string lastName,
-            string nationalNo, DateTime dateOfBirth, short gendor, string address, string phone,
-            string email, int nationalityCountryID, string imagePath)
-        {
-            this.PersonID = personID;
-            this.FirstName = firstName;
-            this.SecondName = secondName;
-            this.ThirdName = thirdName;
-            this.LastName = lastName;
-            this.NationalNo = nationalNo;
-            this.DateOfBirth = dateOfBirth;
-            this.Gendor = gendor;
-            this.Address = address;
-            this.Phone = phone;
-            this.Email = email;
-            this.NationalityCountryID = nationalityCountryID;
-            this.ImagePath = imagePath;
-        }
-
-        public int PersonID { set; get; }
-        public string FirstName { set; get; }
-        public string SecondName { set; get; }
-        public string ThirdName { set; get; }
-        public string LastName { set; get; }
-
-        public string FullName
-        {
-            get { return FirstName + " " + SecondName + " " + ThirdName + " " + LastName; }
-        }
-
-        public string NationalNo { set; get; }
-        public DateTime DateOfBirth { set; get; }
-        public short Gendor { set; get; }
-        public string Address { set; get; }
-        public string Phone { set; get; }
-        public string Email { set; get; }
-        public int NationalityCountryID { set; get; }
-
-        private string _ImagePath;
-
-        public string ImagePath
-        {
-            get { return _ImagePath; }
-            set { _ImagePath = value; }
-        }
-    }
-
+{   
     public class clsPersonData
     {
 
-        public static clsPersonDTO GetPersonInfoByID(int PersonID)
+        public static PersonDTO GetPersonInfoByID(int PersonID)
         {
             try
             {
@@ -79,7 +30,7 @@ namespace DVLD_DataAccess
                                 string imagePath = reader["ImagePath"] != DBNull.Value ? Convert.ToString(reader["ImagePath"]) : "";
 
                                 // Create and return a new PersonDTO
-                                return new clsPersonDTO(
+                                return new PersonDTO(
                                     Convert.ToInt32(reader["PersonID"]),
                                     Convert.ToString(reader["FirstName"]),
                                     Convert.ToString(reader["SecondName"]),
@@ -108,7 +59,7 @@ namespace DVLD_DataAccess
             return null;
         }
 
-        public static clsPersonDTO GetPersonInfoByNationalNo(string nationalNo)
+        public static PersonDTO GetPersonInfoByNationalNo(string nationalNo)
         {
             try
             {
@@ -130,7 +81,7 @@ namespace DVLD_DataAccess
                                 string imagePath = reader["ImagePath"] != DBNull.Value ? Convert.ToString(reader["ImagePath"]) : "";
 
                                 // Create and return a new PersonDTO
-                                return new clsPersonDTO(
+                                return new PersonDTO(
                                     Convert.ToInt32(reader["PersonID"]),
                                     Convert.ToString(reader["FirstName"]),
                                     Convert.ToString(reader["SecondName"]),
@@ -159,7 +110,7 @@ namespace DVLD_DataAccess
             return null;
         }
 
-        public static int AddNewPerson(clsPersonDTO personDTO)
+        public static int AddNewPerson(PersonDTO personDTO)
         {
             // this function will return the new person id if succeeded and -1 if not.
 
@@ -224,7 +175,7 @@ namespace DVLD_DataAccess
             return personDTO.PersonID;
         }
 
-        public static bool UpdatePerson(clsPersonDTO personDTO)
+        public static bool UpdatePerson(PersonDTO personDTO)
         {
             int rowsAffected = 0;
 
@@ -294,63 +245,81 @@ namespace DVLD_DataAccess
 
 
 
-        public static DataTable GetAllPeople()
+        public static List<PersonDisplayDTO> GetAllPeople()
         {
+            List<PersonDisplayDTO> personList = new List<PersonDisplayDTO>();
 
-            DataTable dt = new DataTable();
-            SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString);
-
-            string query = 
-              @"SELECT People.PersonID, People.NationalNo,
-              People.FirstName, People.SecondName, People.ThirdName, People.LastName,
-			  People.DateOfBirth, People.Gendor,  
-				  CASE
-                  WHEN People.Gendor = 0 THEN 'Male'
-
-                  ELSE 'Female'
-
-                  END as GendorCaption ,
-			  People.Address, People.Phone, People.Email, 
-              People.NationalityCountryID, Countries.CountryName, People.ImagePath
-              FROM            People INNER JOIN
-                         Countries ON People.NationalityCountryID = Countries.CountryID
-                ORDER BY People.FirstName";
-
-
-
-
-            SqlCommand command = new SqlCommand(query, connection);
+            string query = @"
+        SELECT 
+            People.PersonID, 
+            People.NationalNo,
+            People.FirstName, 
+            People.SecondName, 
+            People.ThirdName, 
+            People.LastName,
+            People.DateOfBirth, 
+            People.Gendor,  
+            CASE WHEN People.Gendor = 0 THEN 'Male' ELSE 'Female' END AS GendorCaption,
+            People.Address, 
+            People.Phone, 
+            People.Email, 
+            People.NationalityCountryID, 
+            Countries.CountryName, 
+            People.ImagePath
+        FROM People 
+        INNER JOIN Countries ON People.NationalityCountryID = Countries.CountryID
+        ORDER BY People.FirstName";
 
             try
             {
-                connection.Open();
-
-                SqlDataReader reader = command.ExecuteReader();
-
-                if (reader.HasRows)
-
+                using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
                 {
-                    dt.Load(reader);
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        connection.Open();
+
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                // Handle nullables safely
+                                string thirdName = reader["ThirdName"] != DBNull.Value ? Convert.ToString(reader["ThirdName"]) : "";
+                                string email = reader["Email"] != DBNull.Value ? Convert.ToString(reader["Email"]) : "";
+                                string imagePath = reader["ImagePath"] != DBNull.Value ? Convert.ToString(reader["ImagePath"]) : "";
+
+                                // Create a new DTO from each record
+                                PersonDisplayDTO person = new PersonDisplayDTO(
+                                    Convert.ToInt32(reader["PersonID"]),
+                                    Convert.ToString(reader["FirstName"]),
+                                    Convert.ToString(reader["SecondName"]),
+                                    thirdName,
+                                    Convert.ToString(reader["LastName"]),
+                                    Convert.ToString(reader["NationalNo"]),
+                                    Convert.ToDateTime(reader["DateOfBirth"]),
+                                    Convert.ToInt16(reader["Gendor"]), // safely converts byte/short
+                                    Convert.ToString(reader["Address"]),
+                                    Convert.ToString(reader["Phone"]),
+                                    email,
+                                    Convert.ToInt32(reader["NationalityCountryID"]),
+                                    imagePath,
+                                    Convert.ToString(reader["GendorCaption"]),
+                                    Convert.ToString(reader["CountryName"])
+                                );
+
+                                personList.Add(person);
+                            }
+                        }
+                    }
                 }
-
-                reader.Close();
-
-
             }
-
             catch (Exception ex)
             {
                 clsGlobalData.LogError(ex);
-                // Console.WriteLine("Error: " + ex.Message);
-            }
-            finally
-            {
-                connection.Close();
             }
 
-            return dt;
-
+            return personList;
         }
+
 
         public static bool DeletePerson(int PersonID)
         {

@@ -1,7 +1,9 @@
-﻿using System;
+﻿using DVLD_DataAccess;
+using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Xml.Linq;
-using DVLD_DataAccess;
+using DVLD_DTO;
 
 
 namespace DVLD_Buisness
@@ -11,11 +13,11 @@ namespace DVLD_Buisness
         public enum enMode { AddNew = 0, Update = 1 };
         public enMode Mode = enMode.AddNew;
 
-        public clsPersonDTO PersonDTO
+        public PersonDTO PersonDTO
         {
             get
             {
-                return new clsPersonDTO(this.PersonID,this.FirstName,this.SecondName,this.ThirdName,
+                return new PersonDTO(this.PersonID,this.FirstName,this.SecondName,this.ThirdName,
                     this.LastName,this.NationalNo,this.DateOfBirth,this.Gendor,this.Address,
                     this.Phone,this.Email,this.NationalityCountryID,this.ImagePath
                 );
@@ -69,7 +71,7 @@ namespace DVLD_Buisness
             Mode = enMode.AddNew;
         }
 
-        private clsPerson(clsPersonDTO personDTO)
+        private clsPerson(PersonDTO personDTO)
         {
             this.PersonID = personDTO.PersonID;
             this.FirstName = personDTO.FirstName;
@@ -107,7 +109,7 @@ namespace DVLD_Buisness
         public static clsPerson Find(int PersonID)
         {
 
-            clsPersonDTO PerosnDTO = clsPersonData.GetPersonInfoByID(PersonID);
+            PersonDTO PerosnDTO = clsPersonData.GetPersonInfoByID(PersonID);
 
             if( PerosnDTO != null )
             {
@@ -119,7 +121,7 @@ namespace DVLD_Buisness
 
         public static clsPerson Find(string NationalNo)
         {
-            clsPersonDTO PerosnDTO = clsPersonData.GetPersonInfoByNationalNo(NationalNo);
+            PersonDTO PerosnDTO = clsPersonData.GetPersonInfoByNationalNo(NationalNo);
 
             if (PerosnDTO != null)
             {
@@ -153,7 +155,7 @@ namespace DVLD_Buisness
             return false;
         }
 
-        public static DataTable GetAllPeople()
+        public static List<PersonDisplayDTO> GetAllPeople()
         {
             return clsPersonData.GetAllPeople();
         }

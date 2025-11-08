@@ -59,5 +59,11 @@
     <Compile Include="clsCountryData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DVLD_DTO\DVLD_DTO.csproj">
+      <Project>{c2d981ba-7578-4f35-a2d5-6f99a8b1b14a}</Project>
+      <Name>DVLD_DTO</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

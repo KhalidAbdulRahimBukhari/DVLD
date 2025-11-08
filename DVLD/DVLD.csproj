@@ -536,6 +536,18 @@
       <Project>{46a8427b-dcfc-4daf-a14c-e3f4789a993d}</Project>
       <Name>DVLD_Buisness</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DVLD_DataAccess\DVLD_DataAccess.csproj">
+      <Project>{c1be28ad-d036-4c77-964c-9ee4acc6727a}</Project>
+      <Name>DVLD_DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DVLD_DTO\DVLD_DTO.csproj">
+      <Project>{c2d981ba-7578-4f35-a2d5-6f99a8b1b14a}</Project>
+      <Name>DVLD_DTO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DVLD_Helper\DVLD_Helper.csproj">
+      <Project>{f92f9727-7fba-4c45-805e-99bf9ba85156}</Project>
+      <Name>DVLD_Helper</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Man 32.png" />
