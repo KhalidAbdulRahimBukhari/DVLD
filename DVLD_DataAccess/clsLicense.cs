@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using static DVLD_DataAccess.clsCountryData;
 using System.Net;
-using System.Security.Policy;
+using Microsoft.Data.SqlClient;
 using System.ComponentModel;
 
 namespace DVLD_DataAccess
