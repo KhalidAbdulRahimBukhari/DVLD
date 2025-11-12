@@ -14,8 +14,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DVLD_DTO", "..\DVLD_DTO\DVL
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DVLD_Helper", "..\DVLD_Helper\DVLD_Helper.csproj", "{F92F9727-7FBA-4C45-805E-99BF9BA85156}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DVLD_Desktop", "DVLD_Desktop", "{9C80261D-9C13-4127-97F0-24F0ECE86601}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,11 +47,6 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{7A65E342-BF9D-4ABF-856F-3F4F7F7D3CE5} = {9C80261D-9C13-4127-97F0-24F0ECE86601}
-		{C1BE28AD-D036-4C77-964C-9EE4ACC6727A} = {9C80261D-9C13-4127-97F0-24F0ECE86601}
-		{46A8427B-DCFC-4DAF-A14C-E3F4789A993D} = {9C80261D-9C13-4127-97F0-24F0ECE86601}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5A254F8F-4184-4C6F-B105-0802D96268B1}
