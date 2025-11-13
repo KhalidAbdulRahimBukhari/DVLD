@@ -166,10 +166,28 @@ namespace DVLD_Web.Controllers
         }
 
 
+        [HttpDelete("{id}", Name = "DeletePersonByID")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+
+        public ActionResult DeletePersonByID(int id)
+        {
+
+            if (id < 1)
+            {
+                return BadRequest($"Not accepted ID {id}");
+            }
+
+            if (clsPerson.DeletePerson(id))
+
+                return Ok($"Person with ID {id} has been deleted.");
+            else
+                return NotFound($"Person with ID {id} Not Deleted (it has data linked to it !) Internal Error");
+        }
+
     }
 
 
-
-
-
 }
+

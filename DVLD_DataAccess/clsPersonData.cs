@@ -243,8 +243,6 @@ namespace DVLD_DataAccess
             return (rowsAffected > 0);
         }
 
-
-
         public static List<PersonDisplayDTO> GetAllPeople()
         {
             List<PersonDisplayDTO> personList = new List<PersonDisplayDTO>();
@@ -319,7 +317,6 @@ namespace DVLD_DataAccess
 
             return personList;
         }
-
 
         public static bool DeletePerson(int PersonID)
         {
