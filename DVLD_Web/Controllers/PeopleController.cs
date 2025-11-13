@@ -55,8 +55,42 @@ namespace DVLD_Web.Controllers
             return Ok(person.PersonDTO);
         }
 
+        [HttpPost("AddNew", Name = "AddNewPerson")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+
+        public ActionResult<PersonDTO> AddNerPerson(PersonDTO NewPersonDTO)
+        {
+            clsPerson person = new clsPerson();
+            person.FirstName = NewPersonDTO.FirstName;
+            person.SecondName = NewPersonDTO.SecondName;
+            person.ThirdName = NewPersonDTO.ThirdName;
+            person.LastName = NewPersonDTO.LastName;
+            person.NationalNo = NewPersonDTO.NationalNo;
+            person.DateOfBirth = NewPersonDTO.DateOfBirth;
+            person.Gendor = NewPersonDTO.Gendor;
+            person.Address = NewPersonDTO.Address;
+            person.Phone = NewPersonDTO.Phone;
+            person.Email = NewPersonDTO.Email;
+            person.NationalityCountryID = NewPersonDTO.NationalityCountryID;
+
+            if(person.Save())
+            {
+                NewPersonDTO.PersonID = person.PersonID;
+                return Ok(person.PersonDTO);
+            }
+            else
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+
+        }
+
 
     }
+
+
+
 
 
 }
