@@ -10,8 +10,9 @@ namespace DVLD_Buisness
 {
     public  class clsPerson
     {
-        public enum enMode { AddNew = 0, Update = 1 };
-        public enMode Mode = enMode.AddNew;
+        private enum enMode { AddNew = 0, Update = 1 };
+
+        private enMode Mode = enMode.AddNew;
 
         public PersonDTO PersonDTO
         {
@@ -71,7 +72,7 @@ namespace DVLD_Buisness
             Mode = enMode.AddNew;
         }
 
-        private clsPerson(PersonDTO personDTO)
+        public clsPerson(PersonDTO personDTO)
         {
             this.PersonID = personDTO.PersonID;
             this.FirstName = personDTO.FirstName;
@@ -87,7 +88,7 @@ namespace DVLD_Buisness
             this.NationalityCountryID = personDTO.NationalityCountryID;
             this.ImagePath = personDTO.ImagePath;
             this.CountryInfo = clsCountry.Find(personDTO.NationalityCountryID);
-            this.Mode = enMode.Update;
+            //this.Mode = enMode.AddNew;// No need to assign it it`s already AddNew unless explicitlychanged in Find Method
         }
 
 
@@ -113,7 +114,9 @@ namespace DVLD_Buisness
 
             if( PerosnDTO != null )
             {
-                return new clsPerson(PerosnDTO);
+                var newPerson =  new clsPerson(PerosnDTO);
+                newPerson.Mode = enMode.Update;
+                return newPerson;
             }
             return null;
 
@@ -125,7 +128,9 @@ namespace DVLD_Buisness
 
             if (PerosnDTO != null)
             {
-                return new clsPerson(PerosnDTO);
+                var newPerson = new clsPerson(PerosnDTO);
+                newPerson.Mode = enMode.Update;
+                return newPerson;
             }
             return null;
         }
