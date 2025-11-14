@@ -57,6 +57,7 @@ namespace DVLD_Web.Controllers
 
         [HttpPost("AddNew", Name = "AddNewPerson")]
         [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
 
         public ActionResult<PersonDTO> AddNewPerson(PersonDTO NewPersonDTO)
@@ -82,6 +83,12 @@ namespace DVLD_Web.Controllers
             if (NewPersonDTO.DateOfBirth > DateTime.Today.AddYears(-18))
                 return BadRequest("Date of birth must be at least 18 years ago.");
 
+            clsPerson CheckNationalID = clsPerson.Find(NewPersonDTO.NationalNo);
+
+            if (CheckNationalID != null)
+                return BadRequest("National ID Alreay exisits");
+
+
             clsPerson person = new clsPerson(
             new PersonDTO(
             personID: NewPersonDTO.PersonID,
@@ -104,7 +111,7 @@ namespace DVLD_Web.Controllers
             if (person.Save())
             {
                 NewPersonDTO.PersonID = person.PersonID;
-                return CreatedAtRoute("GetPersonByID",new { id = NewPersonDTO.PersonID }, NewPersonDTO);
+                return CreatedAtRoute("GetPersonInfoByID", new { id = NewPersonDTO.PersonID }, NewPersonDTO);
             }
             else
             {
@@ -112,6 +119,7 @@ namespace DVLD_Web.Controllers
             }
 
         }
+
 
         [HttpPut("{id}", Name = "UpdatePerson")]
         [ProducesResponseType(StatusCodes.Status200OK)]
