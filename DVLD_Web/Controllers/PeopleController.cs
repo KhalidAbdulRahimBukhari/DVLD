@@ -70,9 +70,9 @@ namespace DVLD_Web.Controllers
                 NewPersonDTO.DateOfBirth == default ||
                 string.IsNullOrWhiteSpace(NewPersonDTO.Address) ||
                 string.IsNullOrWhiteSpace(NewPersonDTO.Phone) ||
-                NewPersonDTO.NationalityCountryID == 0)
+                NewPersonDTO.NationalityCountryID < 1)
             {
-                return BadRequest("All fields except ImagePath, Email, and ThirdName are required.");
+                return BadRequest("All fields except ImagePath, Email, and ThirdName are required. and National No can`t be < 1");
             }
 
             // Validate Gendor
